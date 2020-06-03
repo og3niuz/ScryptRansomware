@@ -46,7 +46,7 @@ discordWebhook = ""
 ```
   then run
 ```
-  pyinstaller --onefile "Scrypt.py"
+  pyinstaller --onefile "Scrypt.py" --windowed
 ```
   Wait for it to finish building and thats about it for setup.  
 
