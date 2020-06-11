@@ -106,7 +106,9 @@ Each file is opened in read binary mode which is then encrypted with our pycrypt
 ```
 <h3 align="center">Decrypting Files</h4>
 Decrypting your files is straight forward, I included the ScryptDecrypter, it will give you the filepath in which you want to select along with the decryption key. Once you hit start it will itterate through that directory and decrypt all those files.
-  <img align="center" src="https://github.com/backslash/ScryptRansomware/blob/master/images/decrypter.png?raw=true">
+ <p align="center">
+  <img src="https://github.com/backslash/ScryptRansomware/blob/master/images/decrypter.png?raw=true">
+</p>
 
 <h3 align="center">To Do List</h4>
   Hello fellow developers, if you are interested in contributing to Scrypt I will happily accept pushes for new features or improvements to the current version, this was made in 5 hours so its got a few things that could for sure use improvement:
