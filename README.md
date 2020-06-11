@@ -111,7 +111,9 @@ Decrypting your files is straight forward, I included the ScryptDecrypter, it wi
 </p>
 
 <h3 align="center">To Do List</h4>
+
   Hello fellow developers, if you are interested in contributing to Scrypt I will happily accept pushes for new features or improvements to the current version, this was made in 5 hours so its got a few things that could for sure use improvement:
+  
   - [ ] Improve File Handeling (Change Extenstion not hard to do os.rename())
   - [ ] Give the decrypter a user interface.
   - [ ] Speed up the encryption proccess
